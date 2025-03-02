@@ -1,0 +1,1 @@
+/home/mf1bzz/learnOs/os/target/riscv64gc-unknown-none-elf/release/os: /home/mf1bzz/learnOs/os/src/console.rs /home/mf1bzz/learnOs/os/src/lang_items.rs /home/mf1bzz/learnOs/os/src/main.rs /home/mf1bzz/learnOs/os/src/sbi.rs
