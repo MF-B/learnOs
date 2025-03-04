@@ -4,4 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-sbi-rt = { version = "0.0.2", features = ["legacy"] }
+sbi-rt = { version = "0.0.3-rc.5", features = ["legacy"] }
+log = { version = "0.4", features = ["release_max_level_trace"] }
+lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+
+[features]
+log_level = []
+log_trace = []
+log_debug = []
+log_info = []
+log_warn = []
+log_error = []
+log_disable = []
