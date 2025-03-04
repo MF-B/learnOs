@@ -2,13 +2,13 @@
 #![no_main]
 
 use core::arch::global_asm;
-
+use log::*;
 #[macro_use]
 mod console;
 mod sbi;
 mod lang_items;
 mod logging;
-mod config;
+//mod config;
 
 
 global_asm!(include_str!("entry.asm"));
@@ -33,8 +33,9 @@ pub fn rust_main() -> ! {
     // 清零.bss段内存
     clear_bss();
     // 在这里可以添加更多的初始化代码
-    let config = config::Config::parse_from_cmdline();
-    logging::init(config.log_level, config.log_en);
+    // let config = config::Config::parse_from_cmdline();
+    // logging::init(config.log_level, config.log_en);
+    logging::init();
     trace!(
         "[kernel] .text [{:#x}, {:#x})",
         stext as usize, etext as usize
