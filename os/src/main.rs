@@ -10,9 +10,15 @@ mod lang_items;
 mod logging;
 //mod config;
 
+mod syscall;
+mod sync;
+mod trap;
+pub mod batch;
+mod stack_trace;
+
 
 global_asm!(include_str!("entry.asm"));
-// global_asm!(include_str!("link_app.S"));
+global_asm!(include_str!("link_app.S"));
 
 // 标记为不被修改的入口函数
 #[unsafe(no_mangle)]
@@ -59,7 +65,13 @@ pub fn rust_main() -> ! {
     debug!("Hello, Free!");
     trace!("Hello, World!");
 
-    panic!("Shutdown machine!");
+    trap::init();
+
+    batch::init();
+
+    batch::run_next_app();
+
+    //panic!("Shutdown machine!");
 }
 
 fn clear_bss() {

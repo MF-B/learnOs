@@ -7,6 +7,7 @@ edition = "2024"
 sbi-rt = { version = "0.0.3-rc.5", features = ["legacy"] }
 log = { version = "0.4", features = ["release_max_level_trace"] }
 lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
+riscv = { git = "https://gitee.com/MFBg7r/riscv.git", features = ["inline-asm"] }
 
 [features]
 log_level = []

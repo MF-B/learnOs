@@ -1,3 +1,8 @@
+use riscv::register::{
+    sstatus::{Sstatus,SPP},
+    sstatus
+};
+
 #[repr(C)]
 pub struct TrapContext {
     pub x: [usize; 32],

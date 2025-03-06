@@ -2,9 +2,11 @@
 #![feature(linkage)]
 
 #[macro_use]
+pub mod console;
 mod syscall;  // 确保有一个 syscall.rs 文件
 mod lang_items;
-pub mod console;
+
+pub use console::*;
 
 #[unsafe(no_mangle)]
 #[unsafe(link_section = ".text.entry")]
@@ -22,10 +24,10 @@ fn main() -> i32 {
 
 fn clear_bss() {
     unsafe extern "C" {
-        fn sbss();
-        fn ebss();
+        fn start_bss();
+        fn end_bss();
     }
-    (sbss as usize..ebss as usize).for_each(|a| {
+    (start_bss as usize..end_bss as usize).for_each(|a| {
         unsafe { (a as *mut u8).write_volatile(0) }
     });
 }

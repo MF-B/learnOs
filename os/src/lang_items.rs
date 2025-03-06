@@ -1,6 +1,7 @@
 use crate::sbi::shutdown;
 use core::panic::PanicInfo;
 use log::error;
+use crate::stack_trace::show_stack;
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
@@ -9,10 +10,11 @@ fn panic(info: &PanicInfo) -> ! {
             "Panicked at {}:{} {}",
             location.file(),
             location.line(),
-            info.message().as_str().unwrap()
+            info.message()
         );
     } else {
-        error!("Panicked: {}", info.message().as_str().unwrap());
+        error!("Panicked: {}", info.message());
     }
+    show_stack();
     shutdown(true)
 }

@@ -1,10 +1,16 @@
-
-
+.altmacro
 .macro SAVE_GP n
     sd x\n, \n*8(sp)
 .endm
 
-.align 2
+.macro LOAD_GP n
+    ld x\n, \n*8(sp)
+.endm
+
+    .section .text
+    .globl __restore
+    .globl __alltraps
+    .align 2
 __alltraps:
     csrrw sp, sscratch, sp
     # now sp->kernel stack, sscratch->user stack
@@ -32,10 +38,6 @@ __alltraps:
     # set input argument of trap_handler(cx: &mut TrapContext)
     mv a0, sp
     call trap_handler
-
-.macro LOAD_GP n
-    ld x\n, \n*8(sp)
-.endm
 
 __restore:
     # case1: start running app by __restore
