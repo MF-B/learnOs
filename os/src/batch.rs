@@ -18,12 +18,12 @@ struct KernelStack {
 }
 
 #[repr(align(4096))]
-struct UserStack {
-    data: [u8; USER_STACK_SIZE],
+pub struct UserStack {
+    pub data: [u8; USER_STACK_SIZE],
 }
 
 static KERNEL_STACK: KernelStack = KernelStack { data: [0; KERNEL_STACK_SIZE] };
-static USER_STACK: UserStack = UserStack { data: [0; USER_STACK_SIZE] };
+pub static USER_STACK: UserStack = UserStack { data: [0; USER_STACK_SIZE] };
 
 impl KernelStack {
     fn get_sp(&self) -> usize {
@@ -38,7 +38,7 @@ impl KernelStack {
     }
 }
 impl UserStack {
-    fn get_sp(&self) -> usize {
+    pub fn get_sp(&self) -> usize {
         self.data.as_ptr() as usize + USER_STACK_SIZE
     }
 }
